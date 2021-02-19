@@ -26,6 +26,23 @@ app.use(function(req, res, next) {
 });
 
 
+app.get(
+  '/coins'
+  , (req, res) => { // req is dim, not used
+
+    const coins = [ // dummy data - get something working, then add to it.  an array literal
+      { name: 'Bitcoin', symbol: 'BTC', price_usd: "10000" },
+      { name: 'Ethereum', symbol: 'ETH', price_usd: "400" },
+      { name: 'Litecoin', symbol: 'LTC', price_usd: "150" }
+    ];
+
+    res.json({ // spit this back as json 
+      coins
+      // above is short hand for coins: coins  // want property name to be same as constant name
+    })
+  }
+);
+
 /**********************
  * Example get method *
  **********************/
