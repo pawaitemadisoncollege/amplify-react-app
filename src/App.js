@@ -1,25 +1,56 @@
+// Import useState and useEffect hooks from React
+import 
+  React
+  , { 
+    useState
+    , useEffect } 
+    
+  from 'react';
+
+// Import the API category from AWS Amplify
+import { API } from 'aws-amplify'  // swirly because not default export
+
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+const App = () => { 
+  // Create coins variable and set to empty array
+  const [coins, updateCoins] = useState([]);  // useState returns an array with two items. more on useState next week.
+
+  // Define a constant that is a function to all API
+  const fetchCoins = async () => { // an asynch lambda that goes to
+    const data = await API.get('cryptoapi', '/coins') // make async call to service
+    updateCoins(data.coins)  // updateCoins was given to us from useState (react stuff!)
+  };
+
+  // Call fetchCoins function when component loads
+  useEffect(
+    () => {
+      fetchCoins();
+    }
+    , []
+  );
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {
+        coins.map(  // for each item... 
+          (coin, index) => (
+          <div 
+            key={index}
+          >
+            <h2>
+              {coin.name} - {coin.symbol}
+            </h2>
+            <h5>
+              ${coin.price_usd}
+            </h5>
+          </div>
+          )
+        )
+      }
     </div>
   );
 }
 
-export default App;
+export default App
