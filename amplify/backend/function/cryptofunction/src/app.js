@@ -25,23 +25,44 @@ app.use(function(req, res, next) {
   next()
 });
 
+// import axios
+const axios = require('axios')
 
 app.get(
   '/coins'
   , (req, res) => { // req is dim, not used
 
-    const coins = [ // dummy data - get something working, then add to it.  an array literal
-      { name: 'Bitcoin', symbol: 'BTC', price_usd: "10000" },
-      { name: 'Ethereum', symbol: 'ETH', price_usd: "400" },
-      { name: 'Litecoin', symbol: 'LTC', price_usd: "150" }
-    ];
+    // Define base url
+    let apiUrl = `https://api.coinlore.com/api/tickers?start=0&limit=10`
 
-    res.json({ // spit this back as json 
-      coins
-      // above is short hand for coins: coins  // want property name to be same as constant name
-    })
-  }
-);
+    // Check if there are any query string parameters
+    // If so, reset the base url to include them
+    if (
+      req.apiGateway 
+      && req.apiGateway.event.queryStringParameters
+    ) {
+      const { 
+        start = 0
+        , limit = 10 
+       } = req.apiGateway.event.queryStringParameters;  // destructure start = 0 or whatever was in the querystring
+       // and limit set to 10 or whatever was in the querystring
+      
+       apiUrl = `https://api.coinlore.com/api/tickers/?start=${start}&limit=${limit}`
+    }
+
+    // Call API and return response
+    axios.get(apiUrl)
+      .then(
+        response => {  //lambda goes to multiple statements
+          res.json({  
+            coins: response.data.data 
+          });
+        })
+      .catch(
+        err => res.json({ error: err })  // lambda goes to single expression
+      );
+    }
+  );
 
 /**********************
  * Example get method *
