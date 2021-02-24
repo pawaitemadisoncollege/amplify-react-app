@@ -19,7 +19,8 @@ const App = () => {
 
   // Define a constant that is a function to all API
   const fetchCoins = async () => { // an asynch lambda that goes to
-    const data = await API.get('cryptoapi', '/coins') // make async call to service
+    const { limit, start } = input
+    const data = await API.get('cryptoapi', `/coins?limit=${limit}&start=${start}`)
     updateCoins(data.coins)  // updateCoins was given to us from useState (react stuff!)
   };
 
@@ -30,6 +31,17 @@ const App = () => {
     }
     , []
   );
+
+  // Create additional state to hold user input for limit and start properties
+const [input, updateInput] = useState({ limit: 50, start: 0 })
+
+// Create a new function to allow users to update the input values
+const updateInputValues = (type, value) => {
+  updateInput({ 
+    ...input
+    , [type]: value 
+  });
+};
 
   return (
     <div className="App">
