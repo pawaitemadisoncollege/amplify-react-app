@@ -45,6 +45,21 @@ const updateInputValues = (type, value) => {
 
   return (
     <div className="App">
+
+      <input
+        placeholder="Enter a starting index"
+        onChange={e => updateInputValues('start', e.target.value)}
+      />
+      
+      <input
+        onChange={e => updateInputValues('limit', e.target.value)}
+        placeholder="Enter a limit"
+      />
+      
+
+
+      <button onClick={fetchCoins}>Fetch Coins</button>
+      
       {
         coins.map(  // for each item... 
           (coin, index) => (
