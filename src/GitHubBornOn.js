@@ -10,14 +10,17 @@ import
 import { API } from 'aws-amplify'  // swirly because not default export
 
 export const GitHubBornOn = () => { 
- 
+
+  const [borninfo, updateBorninfo] = useState([]);
+  
 // Define a constant that is a function to call API
   const getGitHubInfoByUser = async () => { // an asynch lambda that goes to
-
+    
     try {
       
       const data = await API.get('cryptoapi', `/born`)
       console.log(data)
+      updateBorninfo(data.borninfo)
     }
 
     catch (err) {
@@ -37,7 +40,7 @@ export const GitHubBornOn = () => {
     // start with placeholder txt first!
     return(
         <h2>
-            my github name goes here - my github created at goes here
+            The GitHub user {borninfo.login} was born on {borninfo.created_at}
         </h2>
     );
 
