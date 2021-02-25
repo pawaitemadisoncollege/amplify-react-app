@@ -20,7 +20,7 @@ const App = () => {
   // Create coins variable and set to empty array
   const [coins, updateCoins] = useState([]);  // useState returns an array with two items. more on useState next week.
 
-  // Define a constant that is a function to all API
+  // Define a constant that is a function to call API
   const fetchCoins = async () => { // an asynch lambda that goes to
 
     try {
