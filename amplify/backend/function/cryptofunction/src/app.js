@@ -28,6 +28,7 @@ app.use(function(req, res, next) {
 // import axios
 const axios = require('axios')
 
+/** lambda for coins from the book */
 app.get(
   '/coins'
   , (req, res) => { // req is dim, not used
@@ -63,6 +64,31 @@ app.get(
       );
     }
   );
+
+  /** project 3 */
+
+  app.get(
+    '/born'  //route name
+    , (req, res) => { // req is dim, not used
+  
+      // Define base url
+      let apiUrl = `https://api.github.com/users/pawaitemadisoncollege`
+
+  
+      // Call API and return response
+      axios.get(apiUrl)
+        .then(
+          response => {  //lambda goes to multiple statements
+            res.json({  
+              borninfo: response.data // differet from above - the response from coinlore had more to navigate through
+            });
+          })
+        .catch(
+          err => res.json({ error: err })  // lambda goes to single expression
+        );
+      }
+    );
+  
 
 /**********************
  * Example get method *

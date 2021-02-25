@@ -69,7 +69,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-cryptoapp-local-110938-deployment",
-          "S3Key": "amplify-builds/cryptofunction-4c2b684630664d48746a-build.zip"
+          "S3Key": "amplify-builds/cryptofunction-51534451464e47454752-build.zip"
         }
       }
     },
