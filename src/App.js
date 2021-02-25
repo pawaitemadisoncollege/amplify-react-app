@@ -20,14 +20,34 @@ const App = () => {
   // Define a constant that is a function to all API
   const fetchCoins = async () => { // an asynch lambda that goes to
 
-    updateLoading(true);
+    try {
+      updateLoading(true);
 
-    const { limit, start } = input
-    const data = await API.get('cryptoapi', `/coins?limit=${limit}&start=${start}`)
-    updateCoins(data.coins)  // updateCoins was given to us from useState (react stuff!)
-    updateLoading(false);
+      const { limit, start } = input
+      const data = await API.get('cryptoapi', `/coins?limit=${limit}&start=${start}`)
+      updateCoins(data.coins)  // updateCoins was given to us from useState (react stuff!)
+      updateLoading(false);
+    }
 
+    catch (err) {
+      console.error(err);
+    }
+    
   };
+//rewrite without async await 
+  // const fetchCoins =  () => { // an asynch lambda that goes to
+
+  //     updateLoading(true);
+
+  //     const { limit, start } = input
+  //     API.get('cryptoapi', `/coins?limit=${limit}&start=${start}`) // js promise
+  //       .then(response => updateCoins(response.coins))
+  //       .catch(err => console.error(err))
+  //     ;
+  //     updateLoading(false);
+    
+    
+  // };
 
   // Call fetchCoins function when component loads
   useEffect(
