@@ -13,6 +13,9 @@ import { API } from 'aws-amplify'  // swirly because not default export
 import logo from './logo.svg';
 import './App.css';
 
+// project 3:
+import { GitHubBornOn } from './GitHubBornOn';
+
 const App = () => { 
   // Create coins variable and set to empty array
   const [coins, updateCoins] = useState([]);  // useState returns an array with two items. more on useState next week.
@@ -71,6 +74,7 @@ const updateInputValues = (type, value) => {
 const [loading, updateLoading] = useState(true);
 
   return (
+    <>
     <div className="App">
 
       <input
@@ -105,6 +109,8 @@ const [loading, updateLoading] = useState(true);
         )
       }
     </div>
+    <GitHubBornOn />  
+    </>
   );
 }
 
